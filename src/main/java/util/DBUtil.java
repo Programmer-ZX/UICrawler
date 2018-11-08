@@ -66,10 +66,13 @@ public class DBUtil {
 
             // Send post request
             con.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            wr.writeBytes(urlParameters);
-            wr.flush();
-            wr.close();
+            con.setDoInput(true);
+            // 获取URLConnection对象对应的输出流
+            PrintWriter printWriter = new PrintWriter(con.getOutputStream());
+            // 发送请求参数
+            printWriter.write(data);//post的参数 xx=xx&yy=yy
+            // flush输出流的缓冲
+            printWriter.flush();
 
             int responseCode = con.getResponseCode();
 
